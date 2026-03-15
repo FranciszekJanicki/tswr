@@ -2,7 +2,7 @@ import numpy as np
 
 
 class ManiuplatorModel:
-    def __init__(self, Tp):
+    def __init__(self, Tp, config_index=0):
         self.l1 = 0.5
         self.r1 = 0.04
         self.m1 = 3.0
@@ -11,8 +11,13 @@ class ManiuplatorModel:
         self.r2 = 0.04
         self.m2 = 2.4
 
-        self.m3 = 0.1
-        self.r3 = 0.05
+        match config_index:
+            case 1:
+                self.m3, self.r3 = 0.01, 0.01
+            case 2:
+                self.m3, self.r3 = 1.0, 0.3
+            case _:
+                self.m3, self.r3 = 0.1, 0.05
 
         self.I_1 = 1 / 12 * self.m1 * (3 * self.r1 ** 2 + self.l1 ** 2)
         self.I_2 = 1 / 12 * self.m2 * (3 * self.r2 ** 2 + self.l2 ** 2)
@@ -21,10 +26,18 @@ class ManiuplatorModel:
         # Moje
         self.d1 = self.l1 / 2
         self.d2 = self.l2 / 2
-        self.alpha = self.m1 * self.d1**2 + self.I_1 + \
-            self.m2 * (self.l1**2 + self.d2**2) + self.I_2
-        self.beta = self.m2 * self.l1 * self.d2
-        self.gamma = self.m2 * self.d2**2 + self.I_2
+
+        # Bez obiektu na koncowce
+        # self.alpha = self.m1 * self.d1**2 + self.I_1 + \
+        #     self.m2 * (self.l1**2 + self.d2**2) + self.I_2
+        # self.beta = self.m2 * self.l1 * self.d2
+        # self.gamma = self.m2 * self.d2**2 + self.I_2
+
+        # Obiekt na koncowce
+        self.alpha = self.I_1 + self.I_2 + self.m1 * self.d1 ** 2 + self.m2 * (self.l1 ** 2 + self.d2 ** 2) + \
+            self.I_3 + self.m3 * (self.l1 ** 2 + self.l2 ** 2)
+        self.beta = self.m2 * self.l1 * self.d2 + self.m3 * self.l1 * self.l2
+        self.gamma = self.I_2 + self.m2 * self.d2 ** 2 + self.I_3 + self.m3 * self.l2 ** 2
 
     def M(self, x):
         """
