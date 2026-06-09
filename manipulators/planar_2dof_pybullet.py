@@ -16,9 +16,11 @@ class PlanarManipulator2DOFPyBullet:
         self.client.resetDebugVisualizerCamera(cameraDistance=2, cameraYaw=0.0, cameraPitch=-89.9,
                                                cameraTargetPosition=[0., 0., 0.])
         for i in range(3):
-            self.client.changeDynamics(0, i, lateralFriction=0., linearDamping=0., angularDamping=0.)
+            self.client.changeDynamics(
+                0, i, lateralFriction=0., linearDamping=0., angularDamping=0.)
         for j in range(self.client.getNumJoints(0)):
-            self.client.setJointMotorControl2(0, j, pybullet.POSITION_CONTROL, force=0)
+            self.client.setJointMotorControl2(
+                0, j, pybullet.POSITION_CONTROL, force=0)
         for i in range(2):
             self.client.resetJointState(0, i + 1, q0[i], qdot0[i])
         self.multimodel = multimodel
@@ -34,7 +36,8 @@ class PlanarManipulator2DOFPyBullet:
 
     def set_control(self, u):
         for i in range(2):
-            self.client.setJointMotorControl2(0, i + 1, pybullet.TORQUE_CONTROL, **dict(force=u[i]))
+            self.client.setJointMotorControl2(
+                0, i + 1, pybullet.TORQUE_CONTROL, **dict(force=u[i]))
 
     def simulation_step(self):
         if self.multimodel:
@@ -44,7 +47,7 @@ class PlanarManipulator2DOFPyBullet:
                 Ii = 2. / 5 * m * r ** 2
                 I = (Ii, Ii, Ii)
                 self.change_dynamics(3, m, I)
-        print("OBJ_IDX:", self.i)
+        # print("OBJ_IDX:", self.i)
         self.client.stepSimulation()
 
     def change_dynamics(self, idx, m, I):

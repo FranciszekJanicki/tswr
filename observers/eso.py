@@ -15,9 +15,14 @@ class ESO:
     def set_B(self, B):
         self.B = B
 
+    def set_A(self, A):
+        self.A = A
+
     def update(self, q, u):
         self.states.append(copy(self.state))
-        ### TODO implement ESO update
+        e = q - (self.W @ self.state)
+        state_dot = (self.A @ self.state) + (self.B @ u) + (self.L @ e)
+        self.state = self.state + self.Tp * state_dot
 
     def get_state(self):
         return self.state
