@@ -14,10 +14,10 @@ from utils.simulation import simulate
 Tp = 0.001
 end = 1
 
-# traj_gen = ConstantTorque(np.array([0., 1.0])[:, np.newaxis])
-# traj_gen = Sinusoidal(np.array([0., 1.]), np.array(
-#     [2., 2.]), np.array([0., 0.]))
-traj_gen = Poly3(np.array([0., 0.]), np.array([np.pi/2, np.pi/2]), end)
+#traj_gen = ConstantTorque(np.array([0., 1.0])[:, np.newaxis])
+traj_gen = Sinusoidal(np.array([0., 1.]), np.array(
+   [2., 2.]), np.array([0., 0.]))
+#traj_gen = Poly3(np.array([0., 0.]), np.array([np.pi/2, np.pi/2]), end)
 
 kp_est_1 = 1000
 kp_est_2 = 1000
