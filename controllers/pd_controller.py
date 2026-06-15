@@ -14,9 +14,8 @@ class PDDecentralizedController(Controller):
         q_d = np.array(q_d)
         q_d_dot = np.array(q_d_dot)
 
-        e = q_d - q
-        e_dot = q_d_dot - q_dot
+        error = q_d - q
+        error_dot = q_d_dot - q_dot
 
-        u = self.kp * e + self.kd * e_dot
-
+        u = self.kp * error + self.kd * error_dot
         return u.flatten()

@@ -7,19 +7,19 @@ from trajectory_generators.poly3 import Poly3
 from utils.simulation import simulate
 
 Tp = 0.001
-end = 1
+end = 2
 
 # traj_gen = ConstantTorque(np.array([0., 1.0])[:, np.newaxis])
 # traj_gen = Sinusoidal(np.array([0., 1.]), np.array(
 #     [2., 2.]), np.array([0., 0.]))
 traj_gen = Poly3(np.array([0., 0.]), np.array([np.pi/2, np.pi/2]), end)
 
-b_est_1 = 5
-b_est_2 = 5
+b_est_1 = 6
+b_est_2 = 6
 kp_est_1 = 100
 kp_est_2 = 100
-kd_est_1 = 20
-kd_est_2 = 20
+kd_est_1 = 15
+kd_est_2 = 15
 p1 = 40
 p2 = 40
 
@@ -34,7 +34,7 @@ p = np.array([p1, p2])
 controller = ADRFLController(Tp, np.concatenate([q0, qdot0]), Kp, Kd, p)
 
 
-Q, Q_d, u, T = simulate("PYBULLET", traj_gen, controller, Tp, end)
+Q, Q_d, u, T,_ = simulate("PYBULLET", traj_gen, controller, Tp, end)
 
 eso = np.array(controller.eso.states)
 

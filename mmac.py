@@ -14,7 +14,7 @@ from utils.simulation import simulate
 """http://www.gipsa-lab.fr/~ioandore.landau/adaptivecontrol/Transparents/Courses/AdaptiveCourse5GRK.pdf"""
 
 Tp = 0.01
-end = 0.8
+end = 1.8
 
 
 # TODO: Switch to MMAC as soon as you implement it
@@ -31,19 +31,23 @@ traj_gen = Sinusoidal(np.array([0., 1.]), np.array(
 # traj_gen = Poly3(np.array([0., 0.]), np.array([pi/2, pi/2]), end)
 
 
-Q, Q_d, u, T = simulate("PYBULLET", traj_gen,
+Q, Q_d, u, T, indexes = simulate("PYBULLET", traj_gen,
                         controller, Tp, end, multimodel=True)
 
-plt.subplot(221)
-plt.plot(T, Q[:, 0], 'r', label="q_1")
-plt.plot(T, Q_d[:, 0], 'b', label="qd_1")
-plt.legend()
-plt.subplot(222)
-plt.plot(T, Q[:, 1], 'r', label="q_2")
-plt.plot(T, Q_d[:, 1], 'b', label="qd_2")
-plt.legend()
-plt.subplot(223)
-plt.plot(T, u[:, 0], 'r', label="u_1")
-plt.plot(T, u[:, 1], 'b', label="u_2")
-plt.legend()
+# plt.subplot(221)
+# plt.plot(T, Q[:, 0], 'r', label="q_1")
+# plt.plot(T, Q_d[:, 0], 'b', label="qd_1")
+# plt.legend()
+# plt.subplot(222)
+# plt.plot(T, Q[:, 1], 'r', label="q_2")
+# plt.plot(T, Q_d[:, 1], 'b', label="qd_2")
+# plt.legend()
+# plt.subplot(223)
+# plt.plot(T, u[:, 0], 'r', label="u_1")
+# plt.plot(T, u[:, 1], 'b', label="u_2")
+# plt.legend()
+# plt.show()
+
+plt.plot(controller.indexes, 'r', label="wybrany")
+plt.plot(indexes, 'b', label="prawdziwy")
 plt.show()

@@ -50,8 +50,11 @@ class ADRCJointController(Controller):
         q_hat = eso_state[0]
         q_dot_hat = eso_state[1]
         f_hat = eso_state[2]
-        e = q_d - q_hat
-        e_dot = q_d_dot - q_dot_hat
-        v = q_d_ddot + self.kd * e_dot + self.kp * e
+        
+        error = q_d - q_hat
+        error_dot = q_d_dot - q_dot_hat
+        
+        v = q_d_ddot + self.kd * error_dot + self.kp * error
         self.u = (v - f_hat) / self.b
+        
         return float(np.squeeze(self.u))

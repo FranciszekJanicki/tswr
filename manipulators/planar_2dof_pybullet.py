@@ -28,6 +28,8 @@ class PlanarManipulator2DOFPyBullet:
             self.objects_params = [(0.1, 0.05), (0.01, 0.01), (1., 0.3)]
         self.i = 0
 
+        self.indexes = []
+
     def get_state(self):
         x = [0.] * 4
         for i in range(2):
@@ -47,7 +49,8 @@ class PlanarManipulator2DOFPyBullet:
                 Ii = 2. / 5 * m * r ** 2
                 I = (Ii, Ii, Ii)
                 self.change_dynamics(3, m, I)
-        # print("OBJ_IDX:", self.i)
+        print("OBJ_IDX:", self.i)
+        self.indexes.append(self.i)
         self.client.stepSimulation()
 
     def change_dynamics(self, idx, m, I):

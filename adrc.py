@@ -18,12 +18,12 @@ end = 5
 #     [2., 2.]), np.array([0., 0.]))
 traj_gen = Poly3(np.array([0., 0.]), np.array([np.pi/2, np.pi/2]), end)
 
-b_est_1 = 5
-b_est_2 = 5
+b_est_1 = 6
+b_est_2 = 6
 kp_est_1 = 100
 kp_est_2 = 100
-kd_est_1 = 20
-kd_est_2 = 20
+kd_est_1 = 15
+kd_est_2 = 15
 p1 = 40
 p2 = 40
 
@@ -33,7 +33,7 @@ q2_0 = np.array([q0[1], qdot0[1]])
 controller = ADRController(Tp, params=[[b_est_1, kp_est_1, kd_est_1, p1, q1_0],
                                        [b_est_2, kp_est_2, kd_est_2, p2, q2_0]])
 
-Q, Q_d, u, T = simulate("PYBULLET", traj_gen, controller, Tp, end)
+Q, Q_d, u, T,_ = simulate("PYBULLET", traj_gen, controller, Tp, end)
 
 eso1 = np.array(controller.joint_controllers[0].eso.states)
 eso2 = np.array(controller.joint_controllers[1].eso.states)

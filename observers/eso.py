@@ -20,8 +20,8 @@ class ESO:
 
     def update(self, q, u):
         self.states.append(copy(self.state))
-        e = q - (self.W @ self.state)
-        state_dot = (self.A @ self.state) + (self.B @ u) + (self.L @ e)
+        error = q - (self.W @ self.state)
+        state_dot = (self.A @ self.state) + (self.B @ u) + (self.L @ error)
         self.state = self.state + self.Tp * state_dot
 
     def get_state(self):

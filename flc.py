@@ -10,7 +10,7 @@ from utils.simulation import simulate
 
 Tp = 0.01
 start = 0
-end = 3
+end = 4
 
 """
 Switch to FeedbackLinearizationController as soon as you implement it
@@ -28,7 +28,7 @@ traj_gen = Sinusoidal(np.array([0., 1.]), np.array(
 # traj_gen = Poly3(np.array([0., 0.]), np.array([np.pi/2, np.pi/2]), end)
 
 
-Q, Q_d, u, T = simulate("PYBULLET", traj_gen, controller, Tp, end)
+Q, Q_d, u, T,_ = simulate("PYBULLET", traj_gen, controller, Tp, end)
 
 
 """

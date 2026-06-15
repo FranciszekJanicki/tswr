@@ -35,7 +35,7 @@ class ADRFLController(Controller):
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         ])
         B = np.zeros((6, 2))
-        self.last_u = np.zeros(2)
+        self.previous_u = np.zeros(2)
 
         self.eso = ESO(A, B, W, self.L, q0, Tp)
         self.update_params(q0[:2], q0[2:])
@@ -72,7 +72,7 @@ class ADRFLController(Controller):
         q_dot = x[2:]
 
         self.update_params(q, q_dot)
-        self.eso.update(q, self.last_u)
+        self.eso.update(q, self.previous_u)
         z_hat = self.eso.get_state()
         q_hat = z_hat[0:2]
         q_dot_hat = z_hat[2:4]
@@ -82,6 +82,6 @@ class ADRFLController(Controller):
             self.Kp @ (q_d - q_hat)
         u = self.M @ (v - f_hat) + self.C @ q_dot_hat
 
-        self.last_u = u
+        self.previous_u = u
 
         return u
